@@ -2,11 +2,15 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PropuestaModule } from './propuesta/propuesta.module';
-import { PropuestaEntity } from './propuesta/propuesta.entity/propuesta.entity';
+import { BonoModule } from './bono/bono.module';
+import { ClaseModule } from './clase/clase.module';
+import { UsuarioModule } from './usuario/usuario.module';
+import { BonoEntity } from './bono/bono.entity/bono.entity';
+import { ClaseEntity } from './clase/clase.entity/clase.entity';
+import { UsuarioEntity } from './usuario/usuario.entity/usuario.entity';
 
 @Module({
-  imports: [PropuestaModule,
+  imports: [BonoModule, ClaseModule, UsuarioModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -14,7 +18,7 @@ import { PropuestaEntity } from './propuesta/propuesta.entity/propuesta.entity';
       username: 'postgres',
       password: 'postgres',
       database: 'parcial2',
-      entities: [ PropuestaEntity],
+      entities: [ BonoEntity, ClaseEntity, UsuarioEntity ],
       dropSchema: true,
       synchronize: true,
       keepConnectionAlive: true

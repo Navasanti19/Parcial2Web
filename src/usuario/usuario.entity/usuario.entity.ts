@@ -29,10 +29,10 @@ export class UsuarioEntity {
     @Column()
     idJefe: string;
 
-    @ManyToOne(()=> BonoEntity, bono => bono.usuario)
+    @OneToMany(()=> BonoEntity, bono => bono.usuario)
     bonos: BonoEntity[];
 
-    @ManyToOne(()=> ClaseEntity, clase => clase.usuario)
+    @OneToMany(()=> ClaseEntity, clase => clase.usuario)
     clases: ClaseEntity[];
 
 

@@ -19,10 +19,10 @@ export class ClaseEntity {
     @Column('integer')
     creditos: number;
 
-    @OneToMany(()=>UsuarioEntity, usuario=>usuario.clases)
+    @ManyToOne(()=>UsuarioEntity, usuario=>usuario.clases)
     usuario: UsuarioEntity;
 
-    @ManyToOne(()=> BonoEntity, bono => bono.clase)
+    @OneToMany(()=> BonoEntity, bono => bono.clase)
     bonos: BonoEntity[];
 
 }

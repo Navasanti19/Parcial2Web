@@ -19,10 +19,10 @@ export class BonoEntity {
     @Column()
     palabraClave: string;
 
-    @OneToMany(()=>UsuarioEntity, usuario=>usuario.bonos)
+    @ManyToOne(()=>UsuarioEntity, usuario=>usuario.bonos)
     usuario: UsuarioEntity;
 
-    @OneToMany(()=>ClaseEntity, clase=>clase.bonos)
+    @ManyToOne(()=>ClaseEntity, clase=>clase.bonos)
     clase: ClaseEntity;
 
     

@@ -5,10 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BonoService } from './bono.service';
 import { BonoEntity } from './bono.entity/bono.entity';
 import { BonoController } from './bono.controller';
+import { UsuarioEntity } from 'src/usuario/usuario.entity/usuario.entity';
+import { ClaseEntity } from 'src/clase/clase.entity/clase.entity';
 
 @Module({
   providers: [BonoService],
-  imports: [TypeOrmModule.forFeature([BonoEntity])],
+  imports: [TypeOrmModule.forFeature([BonoEntity, UsuarioEntity, ClaseEntity])],
   controllers: [BonoController],
   exports: [BonoService],
 })

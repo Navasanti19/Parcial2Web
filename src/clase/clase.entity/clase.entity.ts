@@ -3,7 +3,7 @@
 // import { BiteEntity } from '../../bite/bite.entity/bite.entity';
 import { BonoEntity } from 'src/bono/bono.entity/bono.entity';
 import { UsuarioEntity } from 'src/usuario/usuario.entity/usuario.entity';
-import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class ClaseEntity {

@@ -1,99 +1,118 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+## Información del Parcial
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+- **Nombre**: Santiago Navarrete
+- **Código**: 202211202
+- **Usuario**: s.navarretev
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## Descripción General
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Este proyecto implementa un backend NestJS y TypeORM, enfocada en la gestión de entidades como **Usuario**, **Clase** y **Bono**. Se desarrollaron la persistencia, los servicios y controladores correspondientes, aplicando reglas de negocio específicas y asegurando la integridad de los datos.
 
-## Project setup
+---
 
-```bash
-$ npm install
-```
+## Descripción Detallada
 
-## Compile and run the project
+### Funcionalidades Implementadas
 
-```bash
-# development
-$ npm run start
+- **Usuario**:
+  - Creación de usuarios con roles específicos (*Profesor* y *Decana*).
+  - Validaciones de negocio, como la pertenencia a ciertos grupos de investigación para los profesores y la longitud de la extensión telefónica para las decanas.
+  - Eliminación de usuarios, con restricciones si tienen bonos asociados o si el usuario es una decana.
 
-# watch mode
-$ npm run start:dev
+- **Clase**:
+  - Creación de clases asociadas a un usuario (profesor).
+  - Validación de que el código de la clase tenga más de 10 caracteres.
+  - Consulta de clases por ID.
 
-# production mode
-$ npm run start:prod
-```
+- **Bono**:
+  - Creación de bonos asociados a usuarios y clases.
+  - Validación de que el monto sea positivo y que el usuario tenga el rol de profesor.
+  - Consulta de bonos por código de clase y por ID de usuario.
+  - Eliminación de bonos, con restricciones si la calificación es mayor a 4.
 
-## Run tests
+### Pruebas Realizadas
 
-```bash
-# unit tests
-$ npm run test
+Se implementaron pruebas unitarias para los servicios desarrollados en la capa de lógica, incluyendo al menos un caso positivo y un caso negativo para cada método. Las pruebas se realizaron utilizando Jest y `@nestjs/testing`.
 
-# e2e tests
-$ npm run test:e2e
+#### Casos Positivos
 
-# test coverage
-$ npm run test:cov
-```
+- Verificación de que los métodos funcionen correctamente con datos válidos.
+- Aseguramiento de que las entidades se crean, consultan y eliminan según lo esperado.
 
-## Deployment
+#### Casos Negativos
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+- Pruebas con IDs inexistentes para verificar el manejo adecuado de errores y excepciones.
+- Intentos de creación de entidades con datos que violan las reglas de negocio (por ejemplo, códigos de clase demasiado cortos, usuarios con roles inválidos).
+- Verificación de que se lancen excepciones apropiadas cuando se intenta eliminar entidades que no deben ser eliminadas debido a restricciones de negocio.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Documentación del API
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+Se creó la documentación en **Postman** para el API REST, incluyendo:
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+- Descripción de cada endpoint disponible.
+- Ejemplos de peticiones con los datos necesarios.
+- Ejemplos de respuestas, incluyendo códigos de estado y mensajes de error.
 
-## Resources
+---
 
-Check out a few resources that may come in handy when working with NestJS:
+## Justificación de las Pruebas Seleccionadas
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Decidí probar los casos seleccionados para asegurar que la lógica de negocio implementada en los servicios funcione correctamente y maneje adecuadamente las situaciones tanto esperadas como inesperadas. Al incluir casos negativos, como probar solicitudes con IDs inexistentes o datos que violan las restricciones de negocio, pude:
 
-## Support
+- **Validar la Robustez del Sistema**: Garantizar que el API maneje errores de forma controlada y proporcione mensajes de error al usuario.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- **Verificar las Validaciones de Negocio**: Asegurar que las reglas de negocio definidas (por ejemplo, restricciones en roles, validaciones de campos) se apliquen correctamente y prevengan operaciones no deseadas.
 
-## Stay in touch
+- **Mejorar la Experiencia del Usuario**: Al probar cómo el sistema responde a entradas inválidas, puedo mejorar la forma en que se comunican los errores al usuario final, facilitando la resolución de problemas.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- **Asegurar la Integridad de los Datos**: Evitar inconsistencias en la base de datos al garantizar que solo se permitan operaciones válidas y que se impidan aquellas que puedan causar conflictos o violaciones a las reglas establecidas.
 
-## License
+---
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## Instrucciones para Ejecutar el Proyecto
+
+1. **Descargar el último Release**
+
+   ```bash
+   https://github.com/Navasanti19/Parcial2Web.git
+   ```
+
+2. **Instalar Dependencias**
+
+   Navega al directorio del proyecto y ejecuta:
+
+   ```bash
+   npm install
+   ```
+
+3. **Configurar la Base de Datos**
+
+   - Usar PostgreSQL.
+   - Configurar las credenciales y la conexión en el archivo `app.module.ts` o en un archivo de configuración.
+
+
+4. **Iniciar la Aplicación**
+
+   ```bash
+   npm run start
+   ```
+
+5. **Ejecutar las Pruebas**
+
+   Para ejecutar las pruebas unitarias:
+
+   ```bash
+   npm run test
+   ```
+
+---
+
+## Uso del API
+
+- **Documentación en Postman**: Importa la colección de Postman incluida en el proyecto para acceder a ejemplos de peticiones y respuestas.
+- **Endpoints Disponibles**:
+  - `/usuarios`: CRUD de usuarios.
+  - `/clases`: CRUD de clases.
+  - `/bonos`: CRUD de bonos.

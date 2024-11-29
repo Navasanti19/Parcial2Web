@@ -26,8 +26,6 @@ export class BonoController {
     return await this.bonoService.crearBono(bono);
   }
 
-  // Get bono by id (empresa y cliente pueden ver productos)
-
   @Get('/clase/:claseId')
   async findByCodigo(@Param('claseId') claseId: string) {
     return await this.bonoService.findbonoByCodigo(claseId);
@@ -38,7 +36,6 @@ export class BonoController {
     return await this.bonoService.findallBonosByUsuario(usuarioId);
   }
 
-  // Delete a bono (solo empresa puede eliminar productos)
   @Delete(':bonoId')
   @HttpCode(204)
   async delete(@Param('bonoId') bonoId: string) {

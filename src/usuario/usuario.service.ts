@@ -18,7 +18,11 @@ export class UsuarioService {
 
   async crearUsuario(usuario: UsuarioEntity): Promise<UsuarioEntity> {
     if (usuario.rol === 'Profesor') {
-      if (usuario.grupoInvestigacion in ['TICSW', 'IAMAGINE', 'COMIT']) {
+      if (
+        usuario.grupoInvestigacion === 'TICSW' ||
+        usuario.grupoInvestigacion === 'IMAGINE' ||
+        usuario.grupoInvestigacion === 'COMIT'
+      ) {
         return await this.usuarioRepository.save(usuario);
       } else {
         throw new BusinessLogicException(
@@ -51,11 +55,12 @@ export class UsuarioService {
     return usuario;
   }
 
-  // Eliminar un profesoro
   async eliminarUsuario(id: string) {
     const usuario: UsuarioEntity = await this.usuarioRepository.findOne({
       where: { id },
+      relations: ['bonos'],
     });
+
     if (!usuario) {
       throw new BusinessLogicException(
         'The usuario with the given id was not found',
@@ -66,7 +71,7 @@ export class UsuarioService {
         'The usuariois a Decana',
         BusinessError.PRECONDITION_FAILED,
       );
-    } else if (usuario.bonos) {
+    } else if (usuario.bonos && usuario.bonos.length > 0) {
       throw new BusinessLogicException(
         'The usuario has  bonos asociados',
         BusinessError.PRECONDITION_FAILED,
